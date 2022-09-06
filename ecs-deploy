@@ -1,10 +1,10 @@
-  - key: ${BUILDKITE_PLUGIN_ECR_TAG_KEY:-deploy}
-    label: 🏷️ ${BUILDKITE_PLUGIN_ECR_TAG_LABEL:-Deploy}
+  - key: ${BUILDKITE_PLUGIN_ECS_DEPLOY_KEY:-deploy}
+    label: 🏷️ ${BUILDKITE_PLUGIN_ECS_DEPLOY_LABEL:-Deploy}
 ${DEPENDS_ON}
     plugins:
       - Joibel/loomly-tag#a788b36
       - cultureamp/aws-assume-role#v0.1.0:
-          role: "${BUILDKITE_PLUGIN_ECR_TAG_ARN_ROLE}"
+          role: "${BUILDKITE_PLUGIN_ECS_DEPLOY_ARN_ROLE}"
       - docker#v3.13.0:
           image: "fabfuel/ecs-deploy:1.13.1"
           environment:
