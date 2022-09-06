@@ -1,0 +1,27 @@
+name: ECS Deploy
+description: Updates the manifest to a new image for ECS tasks
+author: https://github.com/Joibel
+requirements: []
+configuration:
+  properties:
+    key:
+      type: string
+    label:
+      type: string
+    arn_role:
+      type: string
+    cluster:
+      type: string
+    task:
+      type: string
+    image:
+      type: string
+    ecr_url:
+      type: string
+    repository:
+      type: string
+    new_tag:
+      type: string
+    depends_on:
+      type: array
+  additionalProperties: false

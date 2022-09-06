@@ -1,0 +1,18 @@
+  - key: ${BUILDKITE_PLUGIN_ECR_TAG_KEY:-deploy}
+    label: 🏷️ ${BUILDKITE_PLUGIN_ECR_TAG_LABEL:-Deploy}
+${DEPENDS_ON}
+    plugins:
+      - Joibel/loomly-tag#a788b36
+      - cultureamp/aws-assume-role#v0.1.0:
+          role: "${BUILDKITE_PLUGIN_ECR_TAG_ARN_ROLE}"
+      - docker#v3.13.0:
+          image: "fabfuel/ecs-deploy:1.13.1"
+          environment:
+            - "AWS_ACCESS_KEY_ID"
+            - "AWS_SECRET_ACCESS_KEY"
+            - "AWS_SESSION_TOKEN"
+            - "BRANCH_TAG"
+            - "REVISION_TAG"
+    command:
+      - echo Deploying branch:$${BRANCH_TAG} revision:$${REVISION_TAG}
+      - ecs deploy ${BUILDKITE_PLUGIN_ECS_DEPLOY_CLUSTER} ${BUILDKITE_PLUGIN_ECS_DEPLOY_TASK} --region us-east-1 --image ${BUILDKITE_PLUGIN_ECS_DEPLOY_IMAGE} ${BUILDKITE_PLUGIN_ECS_DEPLOY_ECR_URL}/${BUILDKITE_PLUGIN_ECS_DEPLOY_REPOSITORY}:${BUILDKITE_PLUGIN_ECS_DEPLOY_NEW_TAG} --no-deregister --timeout 1500
