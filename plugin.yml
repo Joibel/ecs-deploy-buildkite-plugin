@@ -10,17 +10,7 @@ configuration:
       type: string
     arn_role:
       type: string
-    cluster:
-      type: string
-    task:
-      type: string
-    image:
-      type: string
-    ecr_url:
-      type: string
-    repository:
-      type: string
-    new_tag:
+    command:
       type: string
     depends_on:
       type: array
